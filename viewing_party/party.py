@@ -34,6 +34,18 @@ def watch_movie(user_data, title):
         
         return user_data
 
+#def watch_movie(user_data, title):
+# Look through each movie in the watchlist
+#    for movie in user_data["watchlist"]:
+#       if movie["title"] == title:
+#            # When found, remove from watchlist and add to watched
+#            user_data["watchlist"].remove(movie)
+#            user_data["watched"].append(movie)
+#            # Return immediately since we're done
+#            return user_data
+#    
+# If movie wasn't found, return original data
+#    return user_data
 
 # -----------------------------------------
 # ------------- WAVE 2 --------------------
