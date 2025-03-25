@@ -1,7 +1,7 @@
 movies_dict = {}
 
-user_data = {"watched": [],
-            "watchlist" : [{"title" : None , "genre" : None, "rating" : None}]}
+# user_data = {"watched": [],
+#             "watchlist" : []}
 
 # ------------- WAVE 1 --------------------
 
@@ -31,10 +31,6 @@ def watch_movie(user_data, title):
         if movie_info["title"] == title:
             user_data["watchlist"].remove(movie_info)
             user_data["watched"].append(movie_info)
-        
-        else: 
-            # movie_info["title"] != title:
-            return user_data
     
     return user_data
 
