@@ -1,12 +1,12 @@
 movies_dict = {}
 
 user_data = {"watched": [],
-            "watchlist" : []}
+            "watchlist" : [{"title" : None , "genre" : None, "rating" : None}]}
 
 # ------------- WAVE 1 --------------------
 
 def create_movie(title, genre, rating):
-    if title or genre or rating is False:
+    if not title or not genre or not rating:
         return None
     
     movies_dict["title"] = title
@@ -25,14 +25,17 @@ def add_to_watchlist(user_data, movie):
 
 def watch_movie(user_data, title):
     # remove from watch list and add to watched
-    if title not in user_data["watchlist"]:
-        return user_data
-    
-    for movie in user_data["watchlist"]:
-        if title in user_data["watchlist"]:
-            user_data["watchlist"].remove(movie)
-            user_data["watched"].append(movie)
+    # loop over user data watch list array
+    # check each dictionary in array if they have the title we have
+    for movie_info in user_data["watchlist"]:
+        if movie_info["title"] == title:
+            user_data["watchlist"].remove(movie_info)
+            user_data["watched"].append(movie_info)
         
+        else: 
+            # movie_info["title"] != title:
+            return user_data
+    
     return user_data
 
 
