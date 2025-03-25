@@ -25,14 +25,15 @@ def add_to_watchlist(user_data, movie):
 
 def watch_movie(user_data, title):
     # remove from watch list and add to watched
-    if title not in user_data:
+    if title not in user_data["watchlist"]:
         return user_data
     
-    elif title in user_data["watchlist"]:
-        user_data["watchlist"].remove(title)
-        user_data["watched"].append(title)
+    for movie in user_data["watchlist"]:
+        if title in user_data["watchlist"]:
+            user_data["watchlist"].remove(movie)
+            user_data["watched"].append(movie)
         
-        return user_data
+    return user_data
 
 
 # -----------------------------------------
