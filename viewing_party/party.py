@@ -47,6 +47,8 @@ def watch_movie(user_data, title):
 # If movie wasn't found, return original data
 #    return user_data
 
+# ------------- WAVE 2 --------------------
+
 def get_watched_avg_rating(user_data):
     if len(user_data["watched"]) == 0:
         return 0.0
@@ -78,11 +80,13 @@ def most_watched_genre(user_data):
 # avr = total movies/ len of watched list
 # return avr
 
-
-# -----------------------------------------
 # ------------- WAVE 3 --------------------
-# -----------------------------------------
 
+def get_unique_watched(user_data):
+    pass
+
+def get_friends_unique_watched(user_data):
+    pass
         
 # -----------------------------------------
 # ------------- WAVE 4 --------------------
