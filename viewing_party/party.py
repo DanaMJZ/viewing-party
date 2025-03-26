@@ -1,7 +1,7 @@
 movies_dict = {}
 
-# user_data = {"watched": [],
-#             "watchlist" : []}
+user_data = {"watched": [],
+            "watchlist" : []}
 
 # ------------- WAVE 1 --------------------
 
@@ -47,9 +47,36 @@ def watch_movie(user_data, title):
 # If movie wasn't found, return original data
 #    return user_data
 
-# -----------------------------------------
-# ------------- WAVE 2 --------------------
-# -----------------------------------------
+def get_watched_avg_rating(user_data):
+    if len(user_data["watched"]) == 0:
+        return 0.0
+    
+    rating_total = 0
+    for movie in user_data["watched"]:
+        rating_total += movie["rating"]
+    average = rating_total / len(user_data["watched"])
+    return average
+    
+def most_watched_genre(user_data):
+    if len(user_data["watched"]) == None:
+        return None
+    genre_count = {}
+    for movie in user_data["watched"]:
+        watched_genre = movie["genre"]
+        if watched_genre not in genre_count:
+            genre_count[watched_genre] = 1
+        else:
+            genre_count[watched_genre] += 1
+
+
+
+
+
+#   if len movie("watchlist") = 0
+#return 0.0
+# for movie in watchedlist we need to add movie ratings
+# avr = total movies/ len of watched list
+# return avr
 
 
 # -----------------------------------------
