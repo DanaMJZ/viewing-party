@@ -60,11 +60,8 @@ def get_watched_avg_rating(user_data):
     return average
     
 def get_most_watched_genre(user_data):
-<<<<<<< HEAD
+
     if len(user_data["watched"]) == 0.0:
-=======
-    if len(user_data["watched"]) == None:
->>>>>>> c8530ba02279612062c370eb1fbb6d8b40aa7bdb
         return None
     genre_count = {}
     for movie in user_data["watched"]:
@@ -75,12 +72,9 @@ def get_most_watched_genre(user_data):
             genre_count[watched_genre] += 1
 
     most_frequent_genre = None
-    top_contender_count = -1 # this could be None IF
+    top_contender_count = -1 
     for genre, count in genre_count.items():
         if count > top_contender_count:
-            # line 76 short cirquits and instead says:
-            # if top_contender_count is None or count > top_conder_count:
-            # use is None instead of == None, is None is reccomended with None
             top_contender_count = count
             most_frequent_genre = genre
     
