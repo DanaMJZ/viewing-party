@@ -59,7 +59,7 @@ def get_watched_avg_rating(user_data):
     average = rating_total / len(user_data["watched"])
     return average
     
-def most_watched_genre(user_data):
+def get_most_watched_genre(user_data):
     if len(user_data["watched"]) == None:
         return None
     genre_count = {}
@@ -70,9 +70,17 @@ def most_watched_genre(user_data):
         else:
             genre_count[watched_genre] += 1
 
-
-
-
+    most_frequent_genre = None
+    top_contender_count = -1 # this could be None IF
+    for genre, count in genre_count.items():
+        if count > top_contender_count:
+            # line 76 short cirquits and instead says:
+            # if top_contender_count is None or count > top_conder_count:
+            # use is None instead of == None, is None is reccomended with None
+            top_contender_count = count
+            most_frequent_genre = genre
+    
+    return most_frequent_genre
 
 #   if len movie("watchlist") = 0
 #return 0.0
@@ -90,8 +98,6 @@ def most_watched_genre(user_data):
 #   friend_movies = set(user_data["friends"])
 
 def get_unique_watched(user_data):
-    
-    
     user_movies = set()
     for movie in user_data["watched"]:
         user_movies.add(movie["title"])
@@ -102,25 +108,58 @@ def get_unique_watched(user_data):
             friend_movies.add(movie["title"])
 
     if len(user_movies) == 0 or len(friend_movies) == 0:
-        return None
+        return []
 
     set_of_difference_titles = user_movies.difference(friend_movies)
 
     result = []
     for title in set_of_difference_titles:
         for movie in user_data["watched"]:
-            if title == user_data["watched"]["title"]:
+            if title == movie["title"]:
                 result.append(movie)
     return result
-            
-    
 
 def get_friends_unique_watched(user_data):
-    pass
+    user_movies = set()
+    for movie in user_data["watched"]:
+        user_movies.add(movie["title"])
+    
+    friend_movies = set()
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friend_movies.add(movie["title"])
+
+    if len(user_movies) == 0 or len(friend_movies) == 0:
+        return []
+
+    set_of_difference_titles = friend_movies.difference(user_movies)
+
+    result = []
+    for title in set_of_difference_titles:
+        for friend in user_data["friends"]:
+            for movie in friend["watched"]:
+                if title == movie["title"]:
+                    result.append(movie)
+    return result
+# python break continue for nested loops
+# we are getting a duplicate of a movie both friends have seen
+# we want to continue from the outer loop for the next title once we get a match
         
-# -----------------------------------------
 # ------------- WAVE 4 --------------------
-# 
+def get_available_recs(user_data):
+    friends_list = user_data["friends"].copy()
+    for friend in friends_list:
+        for movie in friend["watched"]:
+            movie_host = movie["host"]
+            if movie_host in user_data["subscriptions"]:
+                friends_list.remove(movie)
+    
+    # for title in friends_list:
+    #     if title == user_data["movie"]["title"]:
+    #         friends_list.remove["movie"]
+    
+    # return friends_list
+
 # 
 
 # -----------------------------------------
