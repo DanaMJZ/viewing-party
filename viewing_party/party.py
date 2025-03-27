@@ -133,20 +133,26 @@ def get_friends_unique_watched(user_data):
 # remove matches from what we seen to what has een recommended
 # return updated recommended movie list
 def get_available_recs(user_data):
+    rec_movies = []
     friends_list = user_data["friends"].copy()
     for friend in friends_list:
         for movie in friend["watched"]:
             movie_host = movie["host"]
             if movie_host not in user_data["subscriptions"]:
-                friends_list.remove(movie)
+                rec_movies.append(movie)
     
-    for friend in friends_list:
-        for movie in friend["watched"]:
-            title = movie["title"]
-            if title == user_data["movie"]["title"]:
-                friends_list.remove["movie"]
+    my_movies = user_data["watched"]
+    for title in user_data["watched"]:
+        title = 
+    for movie in rec_movies:
+        for title in movie:
+            title = rec_movies["title"]
+            if title in user_data["watchlist"]:
+            # title = movie["title"]
+            # if title == user_data["movie"]["title"]:
+                rec_movies.remove["movie"]
     
-    return friends_list
+    return rec_movies
 
 #
 
