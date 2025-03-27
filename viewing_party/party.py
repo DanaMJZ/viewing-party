@@ -24,9 +24,7 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
-    # remove from watch list and add to watched
-    # loop over user data watch list array
-    # check each dictionary in array if they have the title we have
+
     for movie_info in user_data["watchlist"]:
         if movie_info["title"] == title:
             user_data["watchlist"].remove(movie_info)
@@ -34,18 +32,6 @@ def watch_movie(user_data, title):
     
     return user_data
 
-#def watch_movie(user_data, title):
-# Look through each movie in the watchlist
-#    for movie in user_data["watchlist"]:
-#       if movie["title"] == title:
-#            # When found, remove from watchlist and add to watched
-#            user_data["watchlist"].remove(movie)
-#            user_data["watched"].append(movie)
-#            # Return immediately since we're done
-#            return user_data
-#    
-# If movie wasn't found, return original data
-#    return user_data
 
 # ------------- WAVE 2 --------------------
 
@@ -80,11 +66,6 @@ def get_most_watched_genre(user_data):
     
     return most_frequent_genre
 
-#   if len movie("watchlist") = 0
-#return 0.0
-# for movie in watchedlist we need to add movie ratings
-# avr = total movies/ len of watched list
-# return avr
 
 # ------------- WAVE 3 --------------------
 # we need to find movies only user has watched not their friends
@@ -144,7 +125,6 @@ def get_friends_unique_watched(user_data):
 # we want to continue from the outer loop for the next title once we get a match
         
 # ------------- WAVE 4 --------------------
-<<<<<<< HEAD
 # create recommended movie list = []
 # loop over friends(watched-movies)
 # compare our supscriptions(host) if ours match a s friend supscrirption
@@ -152,23 +132,23 @@ def get_friends_unique_watched(user_data):
 # loop through user watched and compare to recommended movies
 # remove matches from what we seen to what has een recommended
 # return updated recommended movie list
-=======
 def get_available_recs(user_data):
     friends_list = user_data["friends"].copy()
     for friend in friends_list:
         for movie in friend["watched"]:
             movie_host = movie["host"]
-            if movie_host in user_data["subscriptions"]:
+            if movie_host not in user_data["subscriptions"]:
                 friends_list.remove(movie)
     
-    # for title in friends_list:
-    #     if title == user_data["movie"]["title"]:
-    #         friends_list.remove["movie"]
+    for friend in friends_list:
+        for movie in friend["watched"]:
+            title = movie["title"]
+            if title == user_data["movie"]["title"]:
+                friends_list.remove["movie"]
     
-    # return friends_list
+    return friends_list
 
-# 
->>>>>>> c8530ba02279612062c370eb1fbb6d8b40aa7bdb
+#
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
