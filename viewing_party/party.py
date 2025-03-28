@@ -68,13 +68,6 @@ def get_most_watched_genre(user_data):
 
 
 # ------------- WAVE 3 --------------------
-# we need to find movies only user has watched not their friends
-# compare and pick movies in user list but not friends
-# return list of dicts that represnt list of movies
-
-#def get_unique_watched(user_data):
-#    user_movies = set(user_data["watched"])["title"]
-#   friend_movies = set(user_data["friends"])
 
 def get_unique_watched(user_data):
     user_movies = set()
@@ -114,47 +107,50 @@ def get_friends_unique_watched(user_data):
     set_of_difference_titles = friend_movies.difference(user_movies)
 
     result = []
+    result_check_set = set()
     for title in set_of_difference_titles:
         for friend in user_data["friends"]:
             for movie in friend["watched"]:
                 if title == movie["title"]:
-                    result.append(movie)
+                    if title not in result_check_set:
+                        result.append(movie)
+                        result_check_set.add(movie["title"])
     return result
-# python break continue for nested loops
-# we are getting a duplicate of a movie both friends have seen
-# we want to continue from the outer loop for the next title once we get a match
+
         
 # ------------- WAVE 4 --------------------
-# create recommended movie list = []
-# loop over friends(watched-movies)
-# compare our supscriptions(host) if ours match a s friend supscrirption
-# add this movie to our empty list
-# loop through user watched and compare to recommended movies
-# remove matches from what we seen to what has een recommended
-# return updated recommended movie list
+# failing last test, we need to return empty list if all compatible recommended movies
+# us and friends have watched.
+# compatible = on streaming service we have access to.
+
 def get_available_recs(user_data):
     rec_movies = []
+    rec_movie_set = set()
     friends_list = user_data["friends"].copy()
     for friend in friends_list:
         for movie in friend["watched"]:
             movie_host = movie["host"]
-            if movie_host not in user_data["subscriptions"]:
-                rec_movies.append(movie)
-    
+            title = movie["title"]
+            
+            if movie_host in user_data["subscriptions"]: 
+                if title not in rec_movie_set:
+                    rec_movies.append(movie)
+                    rec_movie_set.add(movie["title"])
+            
+
     my_movies = user_data["watched"]
-    for title in user_data["watched"]:
-        title = 
-    for movie in rec_movies:
-        for title in movie:
-            title = rec_movies["title"]
-            if title in user_data["watchlist"]:
-            # title = movie["title"]
-            # if title == user_data["movie"]["title"]:
-                rec_movies.remove["movie"]
+    my_titles = []
+    for movie in user_data["watched"]:
+        my_titles.append(movie["title"])
     
+
+    for rec_movie in rec_movies:
+        if rec_movie["title"] in my_titles:
+            rec_movies.remove(rec_movie)
+
     return rec_movies
 
-#
+
 
 # -----------------------------------------
 # ------------- WAVE 5 --------------------
@@ -166,5 +162,5 @@ def get_available_recs(user_data):
 # with title we have seen
 # loop through list of movie and remove movie that its genre doesnt match with genre variable
 # return updated list of recommended movies
-#  
+# approch duplicates by creating another set to compare sets before adding to the result.
 
