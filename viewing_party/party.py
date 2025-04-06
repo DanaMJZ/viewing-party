@@ -144,15 +144,18 @@ def get_available_recs(user_data):
         my_titles.append(movie["title"])
     
 
-    for rec_movie in rec_movies:
+    # for rec_movie in rec_movies:     
+    #     if rec_movie["title"] in my_titles:
+    #         rec_movies.remove(rec_movie) # we are modifying the list while iterating over it
+
+    # return rec_movies
+
+    for rec_movie in rec_movies.copy():  # Create a copy for iteration
         if rec_movie["title"] in my_titles:
             rec_movies.remove(rec_movie)
-
     return rec_movies
 
 
-
-# -----------------------------------------
 # ------------- WAVE 5 --------------------
 # determain most frequant genre, loop through list of movies
 # count how much genre appeared and return genre:key, value:counter.
@@ -163,4 +166,59 @@ def get_available_recs(user_data):
 # loop through list of movie and remove movie that its genre doesnt match with genre variable
 # return updated list of recommended movies
 # approch duplicates by creating another set to compare sets before adding to the result.
+
+def get_new_rec_by_genre(user_data):
+    genre_count = {}     # Find user's most frequent genre
+    for movie in user_data["watched"]:
+        genre = movie["genre"]
+        if genre in genre_count:
+            genre_count[genre] += 1
+        else:
+            genre_count[genre] = 1
+    
+    if not genre_count:  # if user hasn't watched anything
+        return []
+    
+    # find the most frequent genre
+    most_frequent_genre = None
+    highest_count = 0
+    for genre, count in genre_count.items():
+        if count > highest_count:
+            highest_count = count
+            most_frequent_genre = genre
+
+
+    friends_movies = []     # get all movies watched by friends
+    for friend in user_data["friends"]:
+        for movie in friend["watched"]:
+            friends_movies.append(movie)
+    
+    user_watched_titles = [movie["title"] for movie in user_data["watched"]]  # get user's watched titles for quick lookup
+    
+    
+    recommendations = []
+    for movie in friends_movies:
+        if (movie["genre"] == most_frequent_genre and  # check conditions: right genre, not watched by user
+            movie["title"] not in user_watched_titles and
+            movie not in recommendations):  
+            recommendations.append(movie)
+    
+    return recommendations
+
+
+def get_rec_from_favorites(user_data):
+    friends_movies = []
+    for friend in user_data["friends"]:    # get all movies watched by friends
+        for movie in friend["watched"]:
+            friends_movies.append(movie)
+            
+    friends_watched_titles = [movie["title"] for movie in friends_movies] #get friend's watched titles for quick lookup
+    
+    
+    recommendations = [] # check every faviorate movie
+    for movie in user_data["favorites"]:
+        if movie["title"] not in friends_watched_titles:
+            recommendations.append(movie)
+    
+    return recommendations
 
